@@ -21,10 +21,6 @@ public class NewsCollector {
 
             String title = item.getTitle();
 
-            // TODO 1. HTML 태그 제거
-            // TODO 2. 키워드 추출 (processor)
-            // TODO 3. Kafka 발행 or KeywordService 호출
-
             System.out.println("[NEWS TITLE] " + title);
         }
     }

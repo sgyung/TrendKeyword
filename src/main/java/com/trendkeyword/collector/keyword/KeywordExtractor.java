@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class KeywordExtractor {
 
@@ -19,13 +20,29 @@ public class KeywordExtractor {
     public static List<String> extractKeywords(List<String> titles){
         Map<String, Integer> frequencyMap = new HashMap<>();
 
-        for(String title : titles){
+        for (String title : titles) {
             String cleaned = clean(title);
+
+            for (String word : cleaned.split("\\s+")) {
+                if (isValidKeyword(word)) {
+                    frequencyMap.merge(word, 1, Integer::sum);
+                }
+            }
         }
+
+        // 빈도수 기준 정렬
+        return frequencyMap.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     private static String clean(String text) {
         String noHtml = HTML_TAG.matcher(text).replaceAll("");
         return SPECIAL_CHAR.matcher(noHtml).replaceAll("").trim();
+    }
+
+    private static boolean isValidKeyword(String word) {
+        return word.length() >= 2 && !STOP_WORDS.contains(word);
     }
 }
