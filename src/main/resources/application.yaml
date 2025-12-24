@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: trendkeyword
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/trendkeyword
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+    org.springframework.test: DEBUG
+
+
+naver:
+  api:
+    client-id: nNLI6SvIJywzJkC8QTMz
+    client-secret: jeNiG0r8gU
