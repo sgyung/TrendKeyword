@@ -3,11 +3,12 @@ package com.trendkeyword.trend.service;
 import com.trendkeyword.trend.domain.Keyword;
 import com.trendkeyword.trend.domain.KeywordSource;
 import com.trendkeyword.trend.repository.KeywordRepository;
-import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Server
+
+@Service
 @RequiredArgsConstructor
 @Transactional
 public class KeywordServiceImpl implements KeywordService {
