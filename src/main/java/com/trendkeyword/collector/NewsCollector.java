@@ -1,8 +1,9 @@
 package com.trendkeyword.collector;
 
-import com.trendkeyword.api.naver.NaverNewsApiClient;
-import com.trendkeyword.collector.dto.NaverNewsResponseDto;
+import com.trendkeyword.collector.rss.NewsRssClient;
 import com.trendkeyword.collector.keyword.KeywordExtractor;
+import com.trendkeyword.collector.rss.NewsRssSource;
+import com.trendkeyword.collector.rss.RssParser;
 import com.trendkeyword.trend.service.KeywordCountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -15,28 +16,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NewsCollector {
 
-    private final NaverNewsApiClient naverNewsApiClient;
+    private final NewsRssClient newsRssClient;
+    private final RssParser rssParser;
     private final KeywordExtractor keywordExtractor;
     private final KeywordCountService keywordCountService;
+
 
     @Async
     public void collectLatestNews() {
 
         List<String> titles = new ArrayList<>();
 
-        for (String query : NewsCollectionCategory.DEFAULT) {
-            NaverNewsResponseDto response =
-                    naverNewsApiClient.searchNews(query, 50, 1);
-
-            response.getItems().forEach(item ->
-                    titles.add(item.getTitle() + " " + item.getDescription()));
+        for (NewsRssSource source : NewsRssSource.values()) {
+            String xml = newsRssClient.searchNews(source.getUrl());
+            titles.addAll(rssParser.extractTitles(xml));
         }
 
-        // 👉 여기서 KeywordExtractor 호출
-        List<String> keywords =
-                keywordExtractor.extractKeywords(titles);
-
-        // 🔥 Redis 카운트
+        List<String> keywords = keywordExtractor.extractKeywords(titles);
         keywordCountService.countKeywords(keywords);
     }
 }
