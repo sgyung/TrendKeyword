@@ -31,7 +31,7 @@ logging:
     org.springframework.test: DEBUG
 
 
-naver:
-  api:
-    client-id: nNLI6SvIJywzJkC8QTMz
-    client-secret: jeNiG0r8gU
+#naver:
+#  api:
+#    client-id: nNLI6SvIJywzJkC8QTMz
+#    client-secret: jeNiG0r8gU
