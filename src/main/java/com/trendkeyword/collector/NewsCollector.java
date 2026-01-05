@@ -4,7 +4,7 @@ import com.trendkeyword.collector.rss.NewsRssClient;
 import com.trendkeyword.collector.keyword.KeywordExtractor;
 import com.trendkeyword.collector.rss.NewsRssSource;
 import com.trendkeyword.collector.rss.RssParser;
-import com.trendkeyword.trend.service.KeywordCountService;
+import com.trendkeyword.collector.redis.KeywordCountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

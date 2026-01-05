@@ -1,4 +1,4 @@
-package com.trendkeyword.trend.service;
+package com.trendkeyword.collector.redis;
 
 import com.trendkeyword.collector.dto.KeywordRankDto;
 

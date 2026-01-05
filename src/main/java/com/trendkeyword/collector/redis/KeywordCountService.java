@@ -1,4 +1,4 @@
-package com.trendkeyword.trend.service;
+package com.trendkeyword.collector.redis;
 
 import java.util.List;
 import java.util.Map;
