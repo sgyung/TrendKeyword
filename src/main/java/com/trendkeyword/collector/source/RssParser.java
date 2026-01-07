@@ -1,4 +1,4 @@
-package com.trendkeyword.collector.rss;
+package com.trendkeyword.collector.source;
 
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;

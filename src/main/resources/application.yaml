@@ -3,7 +3,7 @@ spring:
     name: trendkeyword
 
   datasource:
-    url: jdbc:h2:tcp://localhost/~/trendkeyword
+    url: jdbc:h2:tcp://10.1.1.6:9123/~/trendkeyword
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -22,6 +22,12 @@ spring:
     redis:
       host: localhost
       port: 6379
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 logging:
   level:

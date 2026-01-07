@@ -1,4 +1,4 @@
-package com.trendkeyword.collector.rss;
+package com.trendkeyword.collector.source;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

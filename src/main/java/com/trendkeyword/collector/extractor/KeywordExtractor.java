@@ -1,4 +1,4 @@
-package com.trendkeyword.collector.keyword;
+package com.trendkeyword.collector.extractor;
 
 import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.Token;

@@ -1,7 +1,7 @@
 package com.trendkeyword.api.controller;
 
 import com.trendkeyword.collector.dto.KeywordRankDto;
-import com.trendkeyword.collector.redis.KeywordRankingService;
+import com.trendkeyword.collector.aggregate.KeywordRankingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

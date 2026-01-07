@@ -1,4 +1,4 @@
-package com.trendkeyword.collector.kafka;
+package com.trendkeyword.common.config;
 
 import com.trendkeyword.collector.event.KeywordSnapshotEvent;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class KeywordSnapshotProducer {
+public class KeywordSnapshotKafkaProducer {
 
     private static final String TOPIC = "keyword.snapshot";
 

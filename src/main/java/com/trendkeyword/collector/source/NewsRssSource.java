@@ -1,4 +1,4 @@
-package com.trendkeyword.collector.rss;
+package com.trendkeyword.collector.source;
 
 public enum NewsRssSource {
     YNA_ALL("연합뉴스 전체", "https://www.yna.co.kr/rss/news.xml"),

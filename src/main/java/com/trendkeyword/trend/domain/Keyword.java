@@ -23,7 +23,7 @@ public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "keyword_id")
-    private Long id;
+    private Long keywordId;
 
     @Column(name = "keyword_value", nullable = false, length = 100)
     private String value;
