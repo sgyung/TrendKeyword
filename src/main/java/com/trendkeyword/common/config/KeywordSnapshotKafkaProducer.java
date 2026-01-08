@@ -16,7 +16,7 @@ public class KeywordSnapshotKafkaProducer {
     public void send(KeywordSnapshotEvent event) {
         kafkaTemplate.send(
                 TOPIC,
-                event.getSource(),
+                String.valueOf(event.getSource()),
                 event
         );
     }

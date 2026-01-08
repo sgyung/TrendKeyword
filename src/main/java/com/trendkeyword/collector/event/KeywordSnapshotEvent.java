@@ -1,5 +1,6 @@
 package com.trendkeyword.collector.event;
 
+import com.trendkeyword.trend.domain.KeywordSource;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -12,13 +13,13 @@ import java.util.Map;
 @NoArgsConstructor
 public class KeywordSnapshotEvent {
 
-    private LocalDateTime timeWindow;
+    private String timeWindow;
 
-    private String source;
+    private KeywordSource source;
 
     private Map<String, Integer> keywordCounts;
 
-    public KeywordSnapshotEvent(LocalDateTime timeWindow, String source, Map<String, Integer> keywordCounts) {
+    public KeywordSnapshotEvent(String timeWindow, KeywordSource source, Map<String, Integer> keywordCounts) {
         this.timeWindow = timeWindow;
         this.source = source;
         this.keywordCounts = keywordCounts;

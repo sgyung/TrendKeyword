@@ -3,6 +3,7 @@ package com.trendkeyword.collector.producer;
 import com.trendkeyword.collector.event.KeywordSnapshotEvent;
 import com.trendkeyword.collector.aggregate.KeywordSnapshotService;
 import com.trendkeyword.common.config.KeywordSnapshotKafkaProducer;
+import com.trendkeyword.trend.domain.KeywordSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +22,8 @@ public class KeywordSnapshotProducer {
      */
     public void produce(
             String redisKey,
-            LocalDateTime timeWindow,
-            String source
+            String timeWindow,
+            KeywordSource source
     ) {
         Map<String, Integer> snapshot = loadSnapshot(redisKey);
 
@@ -56,8 +57,8 @@ public class KeywordSnapshotProducer {
      * 스냅샷 → 이벤트 변환
      */
     private KeywordSnapshotEvent createEvent(
-            LocalDateTime timeWindow,
-            String source,
+            String timeWindow,
+            KeywordSource source,
             Map<String, Integer> snapshot
     ) {
         return new KeywordSnapshotEvent(timeWindow, source, snapshot);

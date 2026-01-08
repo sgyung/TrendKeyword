@@ -6,6 +6,7 @@ import com.trendkeyword.collector.extractor.KeywordExtractor;
 import com.trendkeyword.collector.source.NewsRssSource;
 import com.trendkeyword.collector.source.RssParser;
 import com.trendkeyword.collector.aggregate.KeywordCountService;
+import com.trendkeyword.trend.domain.KeywordSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -40,8 +41,8 @@ public class NewsCollector {
 
         snapshotProducer.produce(
                 "trend:keyword:latest",
-                LocalDateTime.now(),
-                "NEWS"
+                LocalDateTime.now().toString(),
+                KeywordSource.NEWS
         );
     }
 }
