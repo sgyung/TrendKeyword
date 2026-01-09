@@ -17,11 +17,11 @@ public class KeywordSnapshotServiceImpl implements KeywordSnapshotService {
     private final RedisTemplate<String, String> redisTemplate;
 
     @Override
-    public Map<String, Integer> getSnapshot(String key) {
+    public Map<String, Integer> getSnapshot(String key, int limit) {
 
         // ZSET 전체 조회
         Set<String> values =
-                redisTemplate.opsForZSet().range(key, 0, -1);
+                redisTemplate.opsForZSet().reverseRange(key, 0, limit-1);
 
         if (values == null || values.isEmpty()) {
             return Collections.emptyMap();

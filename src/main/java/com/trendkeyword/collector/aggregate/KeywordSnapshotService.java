@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface KeywordSnapshotService {
 
-    Map<String, Integer> getSnapshot(String key);
+    Map<String, Integer> getSnapshot(String key, int limit);
 }

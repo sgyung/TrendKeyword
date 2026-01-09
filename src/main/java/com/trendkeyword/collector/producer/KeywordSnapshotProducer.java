@@ -17,6 +17,8 @@ public class KeywordSnapshotProducer {
     private final KeywordSnapshotService snapshotService;
     private final KeywordSnapshotKafkaProducer kafkaProducer;
 
+    private static final int SNAPSHOT_LIMIT = 50;
+
     /**
      * Redis 집계 결과를 스냅샷 이벤트로 만들어 Kafka에 발행
      */
@@ -25,7 +27,7 @@ public class KeywordSnapshotProducer {
             String timeWindow,
             KeywordSource source
     ) {
-        Map<String, Integer> snapshot = loadSnapshot(redisKey);
+        Map<String, Integer> snapshot = loadSnapshot(redisKey, SNAPSHOT_LIMIT);
 
         if (isEmpty(snapshot)) {
             return;
@@ -42,8 +44,8 @@ public class KeywordSnapshotProducer {
     /**
      * Redis에서 스냅샷 조회
      */
-    private Map<String, Integer> loadSnapshot(String redisKey) {
-        return snapshotService.getSnapshot(redisKey);
+    private Map<String, Integer> loadSnapshot(String redisKey, int limit) {
+        return snapshotService.getSnapshot(redisKey,  limit);
     }
 
     /**

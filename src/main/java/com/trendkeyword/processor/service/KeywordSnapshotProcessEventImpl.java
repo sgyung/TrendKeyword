@@ -50,7 +50,7 @@ public class KeywordSnapshotProcessEventImpl implements KeywordSnapshotProcessSe
                     });
 
             // 3. 출처별 증가 처리 (update 역할)
-            log.info("기존 키워드 통계 : {} - 카운트 {} 증가", stat.getKeyword().getValue(), count);
+            log.info("출처 통계 : {} - 카운트 {} 증가", event.getSource(), count);
             stat.increaseBySource(event.getSource(), count);
         });
 
