@@ -31,8 +31,8 @@ public class KeywordPipelineServiceImpl implements KeywordPipelineService {
         log.info("[Pipeline] 2. 트렌드 계산 시작");
         trendService.calculateTrends(timeWindow);
 
-        log.info("[Pipeline] 3. 감정 분석 시작");
-        sentimentService.analyzeSentiment(timeWindow);
+//        log.info("[Pipeline] 3. 감정 분석 시작");
+//        sentimentService.analyzeSentiment(timeWindow);
 
         log.info("[Pipeline] 전체 파이프라인 완료");
     }

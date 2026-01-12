@@ -24,4 +24,6 @@ public interface TrendRepository extends JpaRepository<Trend, Long> {
      * 특정 시간대 랭킹 순 조회
      */
     List<Trend> findAllByTimeWindowOrderByRankAsc(LocalDateTime timeWindow);
+
+    boolean existsByKeywordAndTimeWindow(Keyword keyword, LocalDateTime timeWindow);
 }

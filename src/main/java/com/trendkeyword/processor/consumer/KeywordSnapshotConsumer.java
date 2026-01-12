@@ -1,7 +1,7 @@
 package com.trendkeyword.processor.consumer;
 
 import com.trendkeyword.collector.event.KeywordSnapshotEvent;
-import com.trendkeyword.processor.service.KeywordSnapshotProcessService;
+import com.trendkeyword.processor.service.KeywordPipelineService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class KeywordSnapshotConsumer {
 
-    private final KeywordSnapshotProcessService keywordSnapshotProcessService;
+    private final KeywordPipelineService keywordPipelineService;
 
     @KafkaListener(topics = "keyword.snapshot", groupId = "trend-processor")
     public void consume(KeywordSnapshotEvent event) {
@@ -20,6 +20,6 @@ public class KeywordSnapshotConsumer {
         log.info("시간 구간 : {}", event.getTimeWindow());
         log.info("키워드 개수 : {}", event.getKeywordCounts().size());
 
-        keywordSnapshotProcessService.process(event);
+        keywordPipelineService.handle(event);
     }
 }
