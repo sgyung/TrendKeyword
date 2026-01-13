@@ -25,7 +25,7 @@ public class KeywordRepositoryTest {
         Keyword save =  keywordRepository.save(keyword);
 
         // then
-        Assertions.assertThat(save.getId()).isNotNull();
+        Assertions.assertThat(save.getKeywordId()).isNotNull();
         Assertions.assertThat(save.getValue()).isEqualTo("삼성");
         Assertions.assertThat(save.getSource()).isEqualTo(KeywordSource.NEWS);
         Assertions.assertThat(save.isActive()).isTrue();
