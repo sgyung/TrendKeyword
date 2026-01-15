@@ -31,7 +31,7 @@ public class TrendQueryServiceImpl implements TrendQueryService {
         LocalDateTime latestTimeWindow = trendRepository.findLatestTimeWindow();
 
         if(latestTimeWindow == null){
-            new IllegalStateException("트렌드 데이터가 없습니다.");
+            throw new IllegalStateException("트렌드 데이터가 없습니다.");
         }
 
         log.info("[INFO] 최신 트렌드 조회 - timeWindow={}", latestTimeWindow);
@@ -52,13 +52,67 @@ public class TrendQueryServiceImpl implements TrendQueryService {
                 .toList();
     }
 
+    // 특정 시점 트렌드 Top N
     @Override
-    public List<TrendResponse> getTrendsByTimeWindow(LocalDateTime timeWindow, int limit) {
-        return List.of();
+    public List<TrendResponse> getTrendsByTimeWindow(LocalDateTime time, int limit) {
+        if (time == null) {
+            throw new IllegalArgumentException("time은 필수입니다.");
+        }
+
+        // 날짜 + 시 기준으로 범위 계산
+        LocalDateTime from = time
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0);
+
+        LocalDateTime to = from.plusHours(1).minusNanos(1);
+
+        log.info("[INFO] 시 단위 트렌드 조회 - from={}, to={}", from, to);
+
+        List<Trend> trends =
+                trendRepository.findAllByTimeWindowBetweenOrderByTimeWindowAsc(from, to);
+
+        if (trends.isEmpty()) {
+            throw new IllegalStateException("해당 시점의 트렌드 데이터가 없습니다.");
+        }
+
+        return trends.stream()
+                .map(trend -> new TrendResponse(
+                        trend.getKeyword().getValue(),
+                        trend.getGrowthRate(),
+                        trend.getTrendScore(),
+                        trend.getRank()
+                ))
+                .toList();
     }
 
+    // 기간별 트렌드 히스토리
     @Override
     public List<TrendResponse> getTrendHistory(LocalDateTime from, LocalDateTime to) {
-        return List.of();
+        if (from == null || to == null) {
+            throw new IllegalArgumentException("from, to는 필수입니다.");
+        }
+
+        if (from.isAfter(to)) {
+            throw new IllegalArgumentException("from은 to보다 이후일 수 없습니다.");
+        }
+
+        log.info("[INFO] 트렌드 히스토리 조회 - from={}, to={}", from, to);
+
+        List<Trend> trends =
+                trendRepository.findAllByTimeWindowBetweenOrderByTimeWindowAsc(from, to);
+
+        if (trends.isEmpty()) {
+            throw new IllegalStateException("해당 기간의 트렌드 데이터가 없습니다.");
+        }
+
+        return trends.stream()
+                .map(trend -> new TrendResponse(
+                        trend.getKeyword().getValue(),
+                        trend.getGrowthRate(),
+                        trend.getTrendScore(),
+                        trend.getRank()
+                ))
+                .toList();
     }
 }
